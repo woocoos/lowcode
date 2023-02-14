@@ -5,17 +5,18 @@ import { buildComponents, AssetLoader, AssetBundle, AssetItem } from '@alilc/low
 import ReactRenderer from '@alilc/lowcode-react-renderer';
 import { injectComponents } from '@alilc/lowcode-plugin-inject';
 import { createFetchHandler } from '@alilc/lowcode-datasource-fetch-handler'
-import { isInIcestark, getMountNode, registerAppEnter, registerAppLeave } from '@ice/stark-app';
+import { isInIcestark, getMountNode, registerAppEnter, registerAppLeave, getBasename } from '@ice/stark-app';
 import { getProjectSchemaFromLocalStorage, getPackagesFromLocalStorage } from './services/mockService';
 import './preview.less'
 
-const SamplePreview = (props: {
-}) => {
+const SamplePreview = (props: {}) => {
+
+  const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
   const [data, setData] = useState({});
 
   async function init() {
     const packages = await getPackagesFromLocalStorage();
-    const projectSchema = await getProjectSchemaFromLocalStorage();
+    const projectSchema = await getProjectSchemaFromLocalStorage(path);
     const { componentsMap: componentsMapArray, componentsTree } = projectSchema;
     const componentsMap: any = {};
     componentsMapArray?.forEach((component: any) => {

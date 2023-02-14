@@ -21,6 +21,10 @@ import LogoSamplePlugin from './plugins/plugin-logo-sample';
 import { PluginFormily } from '@seada/antd-plugins'
 import 'antd/dist/antd.css'
 import './global.less';
+import ReactDOM from 'react-dom';
+import { useEffect } from 'react';
+import { isInIcestark, getMountNode, registerAppEnter, registerAppLeave, getBasename } from '@ice/stark-app';
+
 
 async function registerPlugins() {
   await plugins.register(InjectPlugin);
@@ -79,23 +83,50 @@ async function registerPlugins() {
   await plugins.register(CustomSetterSamplePlugin);
 };
 
-(async function main() {
-  await registerPlugins();
+function App(props: {
+  isInIcestark?: boolean
+}) {
 
-  init(document.getElementById('lce-container')!, {
-    // locale: 'zh-CN',
-    enableCondition: true,
-    enableCanvasLock: true,
-    // 默认绑定变量
-    supportVariableGlobally: true,
-    // simulatorUrl 在当 engine-core.js 同一个父路径下时是不需要配置的！！！
-    // 这里因为用的是 alifd cdn，在不同 npm 包，engine-core.js 和 react-simulator-renderer.js 是不同路径
-    simulatorUrl: [
-      'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/css/react-simulator-renderer.css',
-      'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/js/react-simulator-renderer.js'
-    ],
-    requestHandlersMap: {
-      fetch: createFetchHandler()
-    },
+  const start = async () => {
+
+    await registerPlugins();
+
+    init(document.getElementById('lce-container')!, {
+      // locale: 'zh-CN',
+      enableCondition: true,
+      enableCanvasLock: true,
+      // 默认绑定变量
+      supportVariableGlobally: true,
+      // simulatorUrl 在当 engine-core.js 同一个父路径下时是不需要配置的！！！
+      // 这里因为用的是 alifd cdn，在不同 npm 包，engine-core.js 和 react-simulator-renderer.js 是不同路径
+      simulatorUrl: [
+        'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/css/react-simulator-renderer.css',
+        'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/js/react-simulator-renderer.js'
+      ],
+      requestHandlersMap: {
+        fetch: createFetchHandler()
+      },
+    });
+  }
+
+  useEffect(() => {
+    start()
+  }, [])
+
+
+  return (<div id="lce-container"></div>)
+}
+
+// 使用微前端引入
+if (isInIcestark()) {
+  const mountNode = getMountNode();
+  registerAppEnter((props) => {
+    ReactDOM.render(<App isInIcestark={true} {...props.customProps} />, mountNode);
   });
-})();
+  // make sure the unmount event is triggered
+  registerAppLeave(() => {
+    ReactDOM.unmountComponentAtNode(mountNode);
+  });
+} else {
+  ReactDOM.render(<App />, document.getElementById('lce-app'));
+}

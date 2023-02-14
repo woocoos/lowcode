@@ -1,5 +1,6 @@
 import { ILowCodePluginContext } from '@alilc/lowcode-engine';
 import { Button } from '@alifd/next';
+import { isInIcestark, getBasename } from '@ice/stark-app';
 import {
   saveSchema,
   resetSchema,
@@ -10,6 +11,7 @@ const SaveSamplePlugin = (ctx: ILowCodePluginContext) => {
   return {
     async init() {
       const { skeleton, hotkey, config } = ctx;
+      const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
 
       skeleton.add({
         name: 'saveSample',
@@ -19,7 +21,7 @@ const SaveSamplePlugin = (ctx: ILowCodePluginContext) => {
           align: 'right',
         },
         content: (
-          <Button onClick={() => saveSchema()}>
+          <Button onClick={() => saveSchema(path)}>
             保存到本地
           </Button>
         ),
@@ -32,14 +34,14 @@ const SaveSamplePlugin = (ctx: ILowCodePluginContext) => {
           align: 'right',
         },
         content: (
-          <Button onClick={() => resetSchema()}>
+          <Button onClick={() => resetSchema(path)}>
             重置页面
           </Button>
         ),
       });
       hotkey.bind('command+s', (e) => {
         e.preventDefault();
-        saveSchema();
+        saveSchema(path);
       });
     },
   };

@@ -18,12 +18,12 @@ export const getUrlParams = function () {
 }
 
 
-export const saveSchema = async () => {
-  await setProjectSchemaToLocalStorage();
+export const saveSchema = async (path?: string) => {
+  await setProjectSchemaToLocalStorage(path);
   Message.success('成功保存到本地');
 };
 
-export const resetSchema = async () => {
+export const resetSchema = async (path?: string) => {
   try {
     await new Promise<void>((resolve, reject) => {
       Dialog.confirm({
@@ -50,21 +50,20 @@ export const resetSchema = async () => {
   project.getCurrentDocument()?.importSchema(defaultSchema as any);
   project.simulatorHost?.rerender();
   // 重置先不保存
-  // await setProjectSchemaToLocalStorage();
+  // await setProjectSchemaToLocalStorage(path);
   Message.success('成功重置页面');
 }
 
 
-export const getProjectSchemaFromLocalStorage = async () => {
-  const path = getUrlParams().path;
-  const data = await get(path)
+export const getProjectSchemaFromLocalStorage = async (path?: string) => {
+  const data = await get(path || getUrlParams().path)
   return data?.schema || assets.default
 }
 
-const setProjectSchemaToLocalStorage = async () => {
+const setProjectSchemaToLocalStorage = async (path?: string) => {
   const schema = project.exportSchema(TransformStage.Save)
   save({
-    path: getUrlParams().path,
+    path: path || getUrlParams().path,
     schema: JSON.parse(JSON.stringify(schema)),
   })
 }
@@ -73,8 +72,8 @@ export const getPackagesFromLocalStorage = async () => {
   return await filterPackages(assets.packages);
 }
 
-export const getPageSchema = async () => {
-  const pageSchema = await getProjectSchemaFromLocalStorage();
+export const getPageSchema = async (path?: string) => {
+  const pageSchema = await getProjectSchemaFromLocalStorage(path);
 
   if (pageSchema) {
     return pageSchema?.componentsTree?.[0];

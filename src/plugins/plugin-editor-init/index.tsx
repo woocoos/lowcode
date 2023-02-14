@@ -2,6 +2,9 @@ import { ILowCodePluginContext } from '@alilc/lowcode-engine';
 import { injectAssets } from '@alilc/lowcode-plugin-inject';
 import assets from '../../services/assets.json';
 import { getPageSchema } from '../../services/mockService';
+import { isInIcestark, getBasename } from '@ice/stark-app';
+
+
 const EditorInitPlugin = (ctx: ILowCodePluginContext, options: any) => {
   return {
     async init() {
@@ -18,8 +21,10 @@ const EditorInitPlugin = (ctx: ILowCodePluginContext, options: any) => {
 
       await material.setAssets(await injectAssets(assets));
 
-      const schema = await getPageSchema();
-      
+      const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
+
+      const schema = await getPageSchema(path);
+
       // 加载 schema
       project.openDocument(schema);
     },
