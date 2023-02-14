@@ -19,11 +19,12 @@ npm run Build
 
 
 ## Deployment
-使用nginx指向build中的下方两个页面
-| 文件         | 说明                   | 参数  |
-| ------------ | ---------------------- | ----- |
-| index.html   | 低代码编辑页面         | path= |
-| preview.html | 低代码编辑结果渲染页面 | path= |
+使用nginx指向build中 
+可访问如下页面
+| 文件         | 说明                   | 参数  | 支持                                   |
+| ------------ | ---------------------- | ----- | -------------------------------------- |
+| index.html   | 低代码编辑页面         | path= |                                        |
+| preview.html | 低代码编辑结果渲染页面 | path= | [icestark](https://icestark.gitee.io/) |
 
 
 ## IndexedDB

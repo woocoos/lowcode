@@ -1,12 +1,13 @@
 
 const dbName = "adminx", storeName = 'lowcode', version = 1;
 
-export type DbDataSchema = {
+type DbDataSchema = {
     path: IDBValidKey
     schema: any
 }
 
-const openDB = function () {
+// 启动db
+function openDB() {
     return new Promise<IDBDatabase>((resolve, reject) => {
         // 打开数据库，若没有则会创建
         const dbReq = window.indexedDB.open(dbName, version);
@@ -33,9 +34,8 @@ const openDB = function () {
         };
     });
 }
-
-// 保存数据
-export const save = async function (data: DbDataSchema) {
+async function save(data: DbDataSchema) {
+    // 保存数据
     const db = await openDB();
 
     return new Promise((resolve, reject) => {
@@ -65,11 +65,11 @@ export const save = async function (data: DbDataSchema) {
                 reject()
             }
         }
-    }
+    })
 }
 
-// 获取数据
-export const get = async function (key: IDBValidKey) {
+async function get(key: IDBValidKey) {
+    // 获取数据
     const db = await openDB()
     return new Promise<DbDataSchema>((resolve, reject) => {
         const request = db.transaction([storeName], 'readonly').objectStore(storeName).get(key);
@@ -81,5 +81,11 @@ export const get = async function (key: IDBValidKey) {
         request.onsuccess = function (event) {
             resolve(request.result)
         };
-    }
+    })
+}
+
+
+export {
+    save,
+    get,
 }
