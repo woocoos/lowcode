@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
-import { Loading } from '@alifd/next';
+import { Spin } from 'antd';
 import { buildComponents, AssetLoader, AssetBundle, AssetItem } from '@alilc/lowcode-utils';
 import ReactRenderer from '@alilc/lowcode-react-renderer';
 import { injectComponents } from '@alilc/lowcode-plugin-inject';
@@ -54,7 +54,7 @@ const SamplePreview = (props: {}) => {
 
   if (!schema || !components) {
     init();
-    return <Loading fullScreen />;
+    return <Spin />;
   }
 
   return (

@@ -1,5 +1,5 @@
 import { ILowCodePluginContext } from '@alilc/lowcode-engine';
-import { Button } from '@alifd/next';
+import { Button } from 'antd';
 import {
   saveSchema, getUrlParams
 } from '../../services/mockService';

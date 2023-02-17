@@ -1,6 +1,6 @@
 import { material, project } from '@alilc/lowcode-engine';
 import { filterPackages } from '@alilc/lowcode-plugin-inject'
-import { Message, Dialog } from '@alifd/next';
+import { message, Modal } from 'antd';
 import { TransformStage } from '@alilc/lowcode-types';
 import assets from './assets.json';
 import schema from './schema.json';
@@ -20,13 +20,13 @@ export const getUrlParams = function () {
 
 export const saveSchema = async (path?: string) => {
   await setProjectSchemaToLocalStorage(path);
-  Message.success('成功保存到本地');
+  message.success('成功保存到本地');
 };
 
 export const resetSchema = async (path?: string) => {
   try {
     await new Promise<void>((resolve, reject) => {
-      Dialog.confirm({
+      Modal.confirm({
         content: '确定要重置吗？您所有的修改都将消失！',
         onOk: () => {
           resolve();
@@ -51,7 +51,7 @@ export const resetSchema = async (path?: string) => {
   project.simulatorHost?.rerender();
   // 重置先不保存
   // await setProjectSchemaToLocalStorage(path);
-  Message.success('成功重置页面');
+  message.success('成功重置页面');
 }
 
 

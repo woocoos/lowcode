@@ -1,11 +1,10 @@
 import { ILowCodePluginContext } from '@alilc/lowcode-engine';
-import { Button } from '@alifd/next';
+import { Button, message } from 'antd';
 import { material } from '@alilc/lowcode-engine';
-import { Message } from '@alifd/next';
 
 const loadIncrementalAssets = () => {
   material?.onChangeAssets(() => {
-    Message.success('[MCBreadcrumb] 物料加载成功');
+    message.success('[MCBreadcrumb] 物料加载成功');
   });
 
   material.loadIncrementalAssets({
