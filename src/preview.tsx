@@ -12,7 +12,13 @@ import './preview.less'
 const SamplePreview = (props: {}) => {
 
   const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
-  const [data, setData] = useState({});
+  const [data, setData] = useState<{
+    schema: any
+    components: any
+  }>({
+    schema: null,
+    components: null,
+  });
 
   async function init() {
     const packages = await getPackagesFromLocalStorage();
@@ -24,7 +30,7 @@ const SamplePreview = (props: {}) => {
     });
     const schema = componentsTree[0];
 
-    const libraryMap = {};
+    const libraryMap: any = {};
     const libraryAsset: string | any[] | AssetBundle | AssetItem | null | undefined = [];
     packages.forEach(({ package: _package, library, urls, renderUrls }) => {
       libraryMap[_package] = library;
@@ -40,7 +46,7 @@ const SamplePreview = (props: {}) => {
     // TODO asset may cause pollution
     const assetLoader = new AssetLoader();
     await assetLoader.load(libraryAsset);
-    const components = await injectComponents(buildComponents(libraryMap, componentsMap));
+    const components = await injectComponents(buildComponents(libraryMap, componentsMap, {} as any));
 
     setData({
       schema,
