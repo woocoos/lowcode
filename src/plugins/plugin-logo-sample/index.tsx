@@ -1,6 +1,6 @@
 import React from 'react';
 import { ILowCodePluginContext } from '@alilc/lowcode-engine';
-import './index.scss';
+import './index.less';
 export interface IProps {
   logo?: string;
   href?: string;

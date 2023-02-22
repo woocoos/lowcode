@@ -11,7 +11,6 @@ import InjectPlugin from '@alilc/lowcode-plugin-inject';
 import SimulatorResizerPlugin from '@alilc/lowcode-plugin-simulator-select';
 import ComponentPanelPlugin from './plugins/plugin-component-panel';
 import DefaultSettersRegistryPlugin from './plugins/plugin-default-setters-registry';
-// import LoadIncrementalAssetsWidgetPlugin from './plugins/plugin-load-incremental-assets-widget';
 import SaveSamplePlugin from './plugins/plugin-save-sample';
 import PreviewSamplePlugin from './plugins/plugin-preview-sample';
 import CustomSetterSamplePlugin from './plugins/plugin-custom-setter-sample';
@@ -53,8 +52,6 @@ async function registerPlugins() {
 
   await plugins.register(SimulatorResizerPlugin);
 
-  // await plugins.register(LoadIncrementalAssetsWidgetPlugin);
-
   await plugins.register(PluginFormily)
 
   // 插件参数声明 & 传递，参考：https://lowcode-engine.cn/site/docs/api/plugins#设置插件参数版本示例
@@ -79,14 +76,16 @@ async function registerPlugins() {
   await plugins.register(CustomSetterSamplePlugin);
 };
 
-function App(props: {
-  isInIcestark?: boolean
-}) {
+function App() {
 
   const start = async () => {
 
     await registerPlugins();
 
+    /**
+     * options 配置参考
+     * https://github.com/alibaba/lowcode-engine/blob/main/packages/types/src/shell/type/engine-options.ts
+     */
     init(document.getElementById('lce-container')!, {
       // locale: 'zh-CN',
       enableCondition: true,
@@ -95,10 +94,10 @@ function App(props: {
       supportVariableGlobally: true,
       // simulatorUrl 在当 engine-core.js 同一个父路径下时是不需要配置的！！！
       // 这里因为用的是 alifd cdn，在不同 npm 包，engine-core.js 和 react-simulator-renderer.js 是不同路径
-      simulatorUrl: [
-        'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/css/react-simulator-renderer.css',
-        'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/js/react-simulator-renderer.js'
-      ],
+      // simulatorUrl: [
+      //   'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/css/react-simulator-renderer.css',
+      //   'https://alifd.alicdn.com/npm/@alilc/lowcode-react-simulator-renderer@latest/dist/js/react-simulator-renderer.js'
+      // ],
       requestHandlersMap: {
         fetch: createFetchHandler()
       },
@@ -117,7 +116,7 @@ function App(props: {
 if (isInIcestark()) {
   const mountNode = getMountNode();
   registerAppEnter((props) => {
-    ReactDOM.render(<App isInIcestark={true} {...props.customProps} />, mountNode);
+    ReactDOM.render(<App {...props.customProps} />, mountNode);
   });
   // make sure the unmount event is triggered
   registerAppLeave(() => {

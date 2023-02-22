@@ -3,7 +3,7 @@ import { injectAssets } from '@alilc/lowcode-plugin-inject';
 import assets from '../../services/assets.json';
 import { getPageSchema } from '../../services/mockService';
 import { isInIcestark, getBasename } from '@ice/stark-app';
-
+import customMaterialAction from './material-action';
 
 const EditorInitPlugin = (ctx: ILowCodePluginContext, options: any) => {
   return {
@@ -27,6 +27,8 @@ const EditorInitPlugin = (ctx: ILowCodePluginContext, options: any) => {
 
       // 加载 schema
       project.openDocument(schema);
+
+      customMaterialAction();
     },
   };
 }

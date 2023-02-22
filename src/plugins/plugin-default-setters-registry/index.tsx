@@ -8,7 +8,7 @@ const DefaultSettersRegistryPlugin = (ctx: ILowCodePluginContext) => {
       const { setterMap, pluginMap } = AliLowCodeEngineExt;
       const { setters, skeleton } = ctx;
       // 注册setterMap
-      setters.registerSetter(setterMap);
+      setters.registerSetter(setterMap as any);
       // 注册插件
       // 注册事件绑定面板
       skeleton.add({
