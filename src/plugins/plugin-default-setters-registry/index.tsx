@@ -1,8 +1,8 @@
-import { ILowCodePluginContext } from '@alilc/lowcode-engine';
 import AliLowCodeEngineExt from '@alilc/lowcode-engine-ext';
+import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 
 // 设置内置 setter 和事件绑定、插件绑定面板
-const DefaultSettersRegistryPlugin = (ctx: ILowCodePluginContext) => {
+const DefaultSettersRegistryPlugin = (ctx: IPublicModelPluginContext) => {
   return {
     async init() {
       const { setterMap, pluginMap } = AliLowCodeEngineExt;

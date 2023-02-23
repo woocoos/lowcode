@@ -1,11 +1,12 @@
-import { ILowCodePluginContext } from '@alilc/lowcode-engine';
+
+import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 import { injectAssets } from '@alilc/lowcode-plugin-inject';
 import assets from '../../services/assets.json';
 import { getPageSchema } from '../../services/mockService';
 import { isInIcestark, getBasename } from '@ice/stark-app';
 import customMaterialAction from './material-action';
 
-const EditorInitPlugin = (ctx: ILowCodePluginContext, options: any) => {
+const EditorInitPlugin = (ctx: IPublicModelPluginContext, options: any) => {
   return {
     async init() {
       const { material, project, config } = ctx;

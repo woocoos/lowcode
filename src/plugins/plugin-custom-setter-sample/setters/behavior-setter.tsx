@@ -6,9 +6,14 @@ const defaultExtraBehaviorActions: any[] = [];
 class LocalBehaviorSetter extends React.Component {
   render() {
     // ignore url && responseFormatter props, use default ones
-    const { url: propsUrl, responseFormatter: propsFormatter, extraBehaviorActions: propsExtraBehaviorActions = [], ...otherProps } = this.props;
+    const {
+      url: propsUrl,
+      responseFormatter: propsFormatter,
+      extraBehaviorActions: propsExtraBehaviorActions = [],
+      ...otherProps
+    } = this.props as any;
     const url = 'https://hn.algolia.com/api/v1/search?query';
-    const  responseFormatter = (response) => response.hits.map((item) => ({
+    const responseFormatter = (response: any) => response.hits.map((item: any) => ({
       label: item.title,
       value: item.author
     }));

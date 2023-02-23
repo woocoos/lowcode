@@ -13,7 +13,7 @@ import ComponentPanelPlugin from './plugins/plugin-component-panel';
 import DefaultSettersRegistryPlugin from './plugins/plugin-default-setters-registry';
 import SaveSamplePlugin from './plugins/plugin-save-sample';
 import PreviewSamplePlugin from './plugins/plugin-preview-sample';
-import CustomSetterSamplePlugin from './plugins/plugin-custom-setter-sample';
+// import CustomSetterSamplePlugin from './plugins/plugin-custom-setter-sample';
 import SetRefPropPlugin from '@alilc/lowcode-plugin-set-ref-prop';
 import LogoSamplePlugin from './plugins/plugin-logo-sample';
 import { PluginFormily } from '@seada/antd-plugins'
@@ -73,7 +73,7 @@ async function registerPlugins() {
 
   await plugins.register(PreviewSamplePlugin);
 
-  await plugins.register(CustomSetterSamplePlugin);
+  // await plugins.register(CustomSetterSamplePlugin);
 };
 
 function App() {

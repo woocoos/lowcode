@@ -1,4 +1,4 @@
-import { ILowCodePluginContext } from '@alilc/lowcode-engine';
+import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 import { Button } from 'antd';
 import { isInIcestark, getBasename } from '@ice/stark-app';
 import {
@@ -7,10 +7,10 @@ import {
 } from '../../services/mockService';
 
 // 保存功能示例
-const SaveSamplePlugin = (ctx: ILowCodePluginContext) => {
+const SaveSamplePlugin = (ctx: IPublicModelPluginContext) => {
   return {
     async init() {
-      const { skeleton, hotkey, config } = ctx;
+      const { skeleton, hotkey } = ctx;
       const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
 
       skeleton.add({

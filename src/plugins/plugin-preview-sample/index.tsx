@@ -1,11 +1,11 @@
-import { ILowCodePluginContext } from '@alilc/lowcode-engine';
+import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 import { Button } from 'antd';
 import {
   saveSchema, getUrlParams
 } from '../../services/mockService';
 
 // 保存功能示例
-const PreviewSamplePlugin = (ctx: ILowCodePluginContext) => {
+const PreviewSamplePlugin = (ctx: IPublicModelPluginContext) => {
   return {
     async init() {
       const { skeleton, config } = ctx;

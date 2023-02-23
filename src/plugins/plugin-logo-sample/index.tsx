@@ -1,5 +1,5 @@
 import React from 'react';
-import { ILowCodePluginContext } from '@alilc/lowcode-engine';
+import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 import './index.less';
 export interface IProps {
   logo?: string;
@@ -19,7 +19,7 @@ const Logo: React.FC<IProps> = (props): React.ReactElement => {
   );
 };
 // 示例 Logo widget
-const LogoSamplePlugin = (ctx: ILowCodePluginContext) => {
+const LogoSamplePlugin = (ctx: IPublicModelPluginContext) => {
   return {
     async init() {
       const { skeleton, config } = ctx;

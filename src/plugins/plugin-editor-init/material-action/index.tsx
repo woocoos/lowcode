@@ -1,5 +1,5 @@
 import { material } from '@alilc/lowcode-engine';
-import { IPublicModelNode } from '@alilc/lowcode-types';
+import type { IPublicModelNode } from '@alilc/lowcode-types';
 
 const CustomMaterialAction = () => {
     material.addBuiltinComponentAction({
