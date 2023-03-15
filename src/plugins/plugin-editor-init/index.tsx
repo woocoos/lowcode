@@ -20,7 +20,7 @@ const EditorInitPlugin = (ctx: IPublicModelPluginContext, options: any) => {
 
       // 设置物料描述
 
-      await material.setAssets(await injectAssets(assets));
+      material.setAssets(await injectAssets(assets));
 
       const path = isInIcestark() ? location.pathname.replace(getBasename(), '') : ''
 

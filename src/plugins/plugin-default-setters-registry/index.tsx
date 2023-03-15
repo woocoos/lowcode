@@ -1,4 +1,5 @@
-import AliLowCodeEngineExt from '@alilc/lowcode-engine-ext';
+// import AliLowCodeEngineExt from '@alilc/lowcode-engine-ext';
+import AliLowCodeEngineExt from '../../setters';
 import type { IPublicModelPluginContext } from '@alilc/lowcode-types';
 
 // 设置内置 setter 和事件绑定、插件绑定面板
